@@ -1,3 +1,5 @@
+mvn install:install-file -Dfile=ffdec_lib-18.0.6.jar -DgroupId=com.jpexs -DartifactId=jpexs-decompiler -Dversion=18.0.6 -Dpackaging=jar -DgeneratePom=true
+
 # JPEXS Free Flash Decompiler Library
 
 Open Source Flash SWF decompiler and editor library.

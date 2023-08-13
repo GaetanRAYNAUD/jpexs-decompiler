@@ -16,8 +16,11 @@
  */
 package com.jpexs.decompiler.flash.exporters.settings;
 
+import com.jpexs.decompiler.flash.abc.ScriptPack;
 import com.jpexs.decompiler.flash.exporters.modes.ScriptExportMode;
 import com.jpexs.decompiler.flash.helpers.FileTextWriter;
+
+import java.util.function.Predicate;
 
 /**
  *
@@ -39,6 +42,8 @@ public class ScriptExportSettings {
 
     public boolean exportEmbedFlaMode;
 
+    public Predicate<ScriptPack> exportPredicate;
+
     public ScriptExportSettings(
             ScriptExportMode mode,
             boolean singleFile,
@@ -51,6 +56,17 @@ public class ScriptExportSettings {
         this.ignoreFrameScripts = ignoreFrameScripts;
         this.exportEmbed = exportEmbed;
         this.exportEmbedFlaMode = exportEmbedFlaMode;
+    }
+
+    public ScriptExportSettings(
+            ScriptExportMode mode,
+            boolean singleFile,
+            boolean ignoreFrameScripts,
+            boolean exportEmbed,
+            boolean exportEmbedFlaMode,
+            Predicate<ScriptPack> exportPredicate) {
+        this(mode, singleFile, ignoreFrameScripts, exportEmbed, exportEmbedFlaMode);
+        this.exportPredicate = exportPredicate;
     }
 
     public String getFileExtension() {
