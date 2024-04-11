@@ -109,3 +109,11 @@ exported1.all.bin
 /libsrc/decimal/nbproject/private/
 /libsrc/decimal/dist/
 /libsrc/decimal/build/
+/libsrc/ffdec_cli/build/
+/libsrc/ffdec_cli/nbproject/private/
+/libsrc/ffdec_cli/javadoc/
+/libsrc/ffdec_cli/coverage/
+/libsrc/ffdec_cli/reports/
+/libsrc/ffdec_cli/dist/
+/libsrc/ffdec_cli/coverage.ec
+/libsrc/ffdec_lib/.idea/

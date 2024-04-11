@@ -465,9 +465,11 @@ public class AS3ScriptExporter {
             if (!item.isSimple && Configuration.ignoreCLikePackages.get()) {
                 continue;
             }
+
             if (ignoredClasses.contains(item.getClassPath().toRawString())) {
                 continue;
             }
+
             if (flexClass != null && item.getClassPath().toRawString().equals(flexClass)) {
                 File file = item.getExportFile(outdir, ".mxml");
                 String filePath = file.getPath();
@@ -477,6 +479,10 @@ public class AS3ScriptExporter {
                     files.add(filePath.toLowerCase());
                     continue;
                 }
+            }
+
+            if(!exportSettings.exportPredicate.test(item)) {
+                continue;
             }
 
             File file = null;

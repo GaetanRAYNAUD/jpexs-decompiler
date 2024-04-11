@@ -16,8 +16,11 @@
  */
 package com.jpexs.decompiler.flash.exporters.settings;
 
+import com.jpexs.decompiler.flash.abc.ScriptPack;
 import com.jpexs.decompiler.flash.exporters.modes.ScriptExportMode;
 import com.jpexs.decompiler.flash.helpers.FileTextWriter;
+
+import java.util.function.Predicate;
 
 /**
  * Script export settings.
@@ -85,6 +88,8 @@ public class ScriptExportSettings implements Cloneable {
      * @param exportEmbedFlaMode Export embed fla mode
      * @param resampleWav Resample WAV
      */
+    public Predicate<ScriptPack> exportPredicate;
+
     public ScriptExportSettings(
             ScriptExportMode mode,
             boolean singleFile,
@@ -114,6 +119,20 @@ public class ScriptExportSettings implements Cloneable {
         this.resampleWav = resampleWav;
         this.assetsDir = assetsDir;
         this.includeAllClasses = includeAllClasses;
+    }
+
+    public ScriptExportSettings(
+            ScriptExportMode mode,
+            boolean singleFile,
+            boolean ignoreFrameScripts,
+            boolean exportEmbed,
+            boolean exportEmbedFlaMode,
+            boolean resampleWav,
+            String assetsDir,
+            boolean includeAllClasses,
+            Predicate<ScriptPack> exportPredicate) {
+        this(mode, singleFile, ignoreFrameScripts, exportEmbed, exportEmbedFlaMode, resampleWav, assetsDir, includeAllClasses);
+        this.exportPredicate = exportPredicate;
     }
 
     public String getFileExtension() {

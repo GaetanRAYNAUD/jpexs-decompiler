@@ -241,8 +241,7 @@
                         
         </propertyfile>        
 
-        <jar destfile="${dist.dir}/${jar.filename}.jar" basedir="${compile.dir}">
-            
+        <jar destfile="${dist.dir}/${jar.filename}-${version}.jar" basedir="${compile.dir}">
         </jar>
     </target>
     
