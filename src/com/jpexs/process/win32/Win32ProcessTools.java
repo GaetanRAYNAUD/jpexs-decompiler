@@ -364,8 +364,8 @@ public class Win32ProcessTools extends ProcessTools {
         iUnReadable |= (mbi.state.intValue() == Kernel32.MEM_RESERVE) ? 1 : 0;
         iUnReadable |= (mbi.protect.intValue() & WinNT.PAGE_WRITECOPY);
         iUnReadable |= (mbi.protect.intValue() & WinNT.PAGE_EXECUTE);
-        iUnReadable |= (mbi.protect.intValue() & WinNT.PAGE_GUARD);
-        iUnReadable |= (mbi.protect.intValue() & WinNT.PAGE_NOACCESS);
+        iUnReadable |= (mbi.protect.intValue() & 0x100);
+        iUnReadable |= (mbi.protect.intValue() & 0x01);
         return iUnReadable == 0;
     }
 
@@ -460,7 +460,7 @@ public class Win32ProcessTools extends ProcessTools {
     }
 
     private static boolean hasGuard(MEMORY_BASIC_INFORMATION mbi) {
-        return (mbi.protect.intValue() & WinNT.PAGE_GUARD) == WinNT.PAGE_GUARD;
+        return (mbi.protect.intValue() & 0x100) == 0x100;
     }
 
     private static boolean unsetGuard(HANDLE hOtherProcess, MEMORY_BASIC_INFORMATION mbi) {
@@ -468,7 +468,7 @@ public class Win32ProcessTools extends ProcessTools {
             return true;
         }
         int oldProt = mbi.protect.intValue();
-        int newProt = oldProt - WinNT.PAGE_GUARD;
+        int newProt = oldProt - 0x100;
         IntByReference oldProtRef = new IntByReference();
         boolean ok = Kernel32.INSTANCE.VirtualProtectEx(hOtherProcess, new WinDef.LPVOID(pointerToAddress(mbi.baseAddress)), mbi.regionSize, newProt, oldProtRef);
         if (ok) {
@@ -483,7 +483,7 @@ public class Win32ProcessTools extends ProcessTools {
             return true;
         }
         int oldProt = mbi.protect.intValue();
-        int newProt = oldProt | WinNT.PAGE_GUARD;
+        int newProt = oldProt | 0x100;
         IntByReference oldProtRef = new IntByReference();
         boolean ok = Kernel32.INSTANCE.VirtualProtectEx(hOtherProcess, new WinDef.LPVOID(pointerToAddress(mbi.baseAddress)), mbi.regionSize, newProt, oldProtRef);
         if (ok) {

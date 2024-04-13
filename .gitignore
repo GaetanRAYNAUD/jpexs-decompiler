@@ -117,3 +117,5 @@ exported1.all.bin
 /libsrc/ffdec_cli/dist/
 /libsrc/ffdec_cli/coverage.ec
 /libsrc/ffdec_lib/.idea/
+
+out/
